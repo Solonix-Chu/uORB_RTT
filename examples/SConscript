@@ -1,0 +1,23 @@
+from building import *
+import os
+
+cwd = GetCurrentDir()
+CPPPATH = [os.path.join(cwd, '..', 'inc')]
+src = []
+
+if GetDepend(['UORB_ENABLE_DEMO']):
+    if os.path.exists(os.path.join(cwd, 'uorb_demo_pub.c')):
+        src += ['uorb_demo_pub.c']
+    if os.path.exists(os.path.join(cwd, 'uorb_demo_sub.c')):
+        src += ['uorb_demo_sub.c']
+
+if GetDepend(['UORB_ENABLE_DEVTEST']) and GetDepend(['UORB_REGISTER_AS_DEVICE']):
+    if os.path.exists(os.path.join(cwd, 'uorb_devtest.c')):
+        src += ['uorb_devtest.c']
+
+if len(src) > 0:
+    group = DefineGroup('uORB_examples', src, depend = [''], CPPPATH = CPPPATH)
+else:
+    group = []
+
+Return('group') 

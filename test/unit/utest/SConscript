@@ -1,0 +1,13 @@
+from building import *
+
+cwd = GetCurrentDir()
+src = []
+CPPPATH = [cwd, cwd + '/../../../inc']
+
+# add only unit test sources in this folder
+src += Glob('*.c')
+
+# define group with broader utest dependency symbols
+group = DefineGroup('uORB-utest', src, depend = ['RT_USING_UTEST'], CPPPATH = CPPPATH)
+
+Return('group') 

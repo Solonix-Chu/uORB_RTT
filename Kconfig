@@ -1,0 +1,43 @@
+menu "uORB Configuration"
+
+config RT_USING_UORB
+    bool "Enable uORB"
+    default y
+    help
+      Enable uORB publish/subscribe middleware.
+
+if RT_USING_UORB
+
+config UORB_USING_RTDEVICE
+    bool "Register topics as rt_device nodes"
+    default n
+    help
+      When enabled, each topic instance can be registered as a rt_device node
+      named /dev/<topic><instance>. Use with caution on memory-constrained systems.
+
+config UORB_REGISTER_AS_DEVICE
+    bool
+    default y if UORB_USING_RTDEVICE
+
+config UORB_USING_MSG_GEN
+    bool "Enable .msg code generation"
+    default y
+    help
+      Generate C code from libraries/uORB/msg/*.msg into inc/topics and src/metadata.
+
+config UORB_ENABLE_DEMO
+    bool "Enable uORB demo apps (publisher/subscriber)"
+    default n
+    help
+      Build and start demo publisher/subscriber app threads under applications/.
+
+config UORB_ENABLE_DEVTEST
+    bool "Enable uORB device demo app (requires Register as Device)"
+    depends on UORB_REGISTER_AS_DEVICE
+    default n
+    help
+      Build and start device-based uORB demo app under applications/uorb_devtest.c.
+
+endif # RT_USING_UORB
+
+endmenu 
