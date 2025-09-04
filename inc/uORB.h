@@ -4,24 +4,6 @@
 *****************************************************************
 */
 
-/**
- ******************************************************************************
- * @file    uORB.h
- * @author  RT-Thread uORB Team
- * @version V1.0.0
- * @date    2024-12-19
- * @brief   uORB Public API Interface
- ******************************************************************************
- * @attention
- *
- * Copyright (c) 2024 RT-Thread Development Team
- * SPDX-License-Identifier: Apache-2.0
- *
- * uORB (Micro Object Request Broker) for RT-Thread
- * Compatible with PX4 uORB API
- ******************************************************************************
- */
-
 #ifndef __UORB_H__
 #define __UORB_H__
 
@@ -110,9 +92,6 @@ typedef orb_subscribe_t *orb_subscr_t;
     struct hack
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif //__cplusplus
 
 /**
  * ORB topic advertiser handle.

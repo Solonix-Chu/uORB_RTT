@@ -67,7 +67,14 @@ if GetDepend(['PKG_USING_UTEST']) or GetDepend(['RT_USING_UTEST']):
         CPPPATH += [cwd + '/test/unit/utest']
 
 # Define the group
-group = DefineGroup('uORB', src, depend = [''], CPPPATH = CPPPATH, CPPDEFINES = CPPDEFINES)
+# Enable C++ wrapper include path when configured
+if GetDepend(['UORB_USING_CXX']):
+    CPPPATH += [cwd + '/inc/cxx']
+    LOCAL_CXXFLAGS = ' -fno-exceptions -fno-rtti -fno-unwind-tables -fno-asynchronous-unwind-tables'
+else:
+    LOCAL_CXXFLAGS = ''
+
+group = DefineGroup('uORB', src, depend = [''], CPPPATH = CPPPATH, CPPDEFINES = CPPDEFINES, LOCAL_CXXFLAGS = LOCAL_CXXFLAGS)
 
 # attach utest group if present
 try:

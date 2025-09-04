@@ -11,12 +11,22 @@ if GetDepend(['UORB_ENABLE_DEMO']):
     if os.path.exists(os.path.join(cwd, 'uorb_demo_sub.c')):
         src += ['uorb_demo_sub.c']
 
+if GetDepend(['UORB_ENABLE_CPP_DEMO']) and GetDepend(['UORB_USING_CXX']):
+    if os.path.exists(os.path.join(cwd, 'uorb_cpp_demo.cpp')):
+        src += ['uorb_cpp_demo.cpp']
+
+# prepare CXXFLAGS when C++ example is enabled
+if GetDepend(['UORB_USING_CXX']):
+    LOCAL_CXXFLAGS = ' -fno-exceptions -fno-rtti -fno-unwind-tables -fno-asynchronous-unwind-tables'
+else:
+    LOCAL_CXXFLAGS = ''
+
 if GetDepend(['UORB_ENABLE_DEVTEST']) and GetDepend(['UORB_REGISTER_AS_DEVICE']):
     if os.path.exists(os.path.join(cwd, 'uorb_devtest.c')):
         src += ['uorb_devtest.c']
 
 if len(src) > 0:
-    group = DefineGroup('uORB_examples', src, depend = [''], CPPPATH = CPPPATH)
+    group = DefineGroup('uORB_examples', src, depend = [''], CPPPATH = CPPPATH, LOCAL_CXXFLAGS = LOCAL_CXXFLAGS)
 else:
     group = []
 
